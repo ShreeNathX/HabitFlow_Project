@@ -1,4 +1,4 @@
-# HabitFlow — Habit Streak Tracker
+# HabitFlow - Habit Streak Tracker
 
 A Flask web app to track daily habits, build streaks, and visualize consistency.
 
