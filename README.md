@@ -26,7 +26,7 @@ http://localhost:5000
 
 ## Project Structure
 ```
-habit_tracker/
+HABITFLOW_PROJECT/
 ├── app.py              # Flask app factory
 ├── models.py           # SQLAlchemy models (User, Habit, CheckIn)
 ├── routes/
