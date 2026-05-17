@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard — HabitFlow{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <div>
+    <h1 class="page-title">Good day, {{ current_user.username }}</h1>
+    <p class="page-date">{{ today }}</p>
+  </div>
+  <a href="{{ url_for('habits.add') }}" class="btn btn-primary">+ Add Habit</a>
+</div>
+
+<!-- Summary Cards -->
+<div class="stats-grid">
+  <div class="stat-card">
+    <div class="stat-icon">📋</div>
+    <div class="stat-value">{{ total }}</div>
+    <div class="stat-label">Total Habits</div>
+  </div>
+  <div class="stat-card stat-card--green">
+    <div class="stat-icon">✅</div>
+    <div class="stat-value">{{ done_today }}</div>
+    <div class="stat-label">Done Today</div>
+  </div>
+  <div class="stat-card stat-card--amber">
+    <div class="stat-icon">🔥</div>
+    <div class="stat-value">{{ best_streak }}</div>
+    <div class="stat-label">Best Streak</div>
+  </div>
+  <div class="stat-card stat-card--purple">
+    <div class="stat-icon">📊</div>
+    <div class="stat-value">{% if total > 0 %}{{ ((done_today / total) * 100) | int }}%{% else %}—{% endif %}</div>
+    <div class="stat-label">Today's Rate</div>
+  </div>
+</div>
+
+<!-- Habits List -->
+{% if habits %}
+<div class="habits-grid">
+  {% for habit in habits %}
+  <div class="habit-card habit-card--{{ habit.color }} {% if habit.checked_today() %}habit-card--done{% endif %}" id="card-{{ habit.id }}">
+    <div class="habit-top">
+      <div class="habit-icon-wrap">
+        <span class="habit-icon">{{ habit.icon }}</span>
+      </div>
+      <div class="habit-actions">
+        <a href="{{ url_for('habits.edit', habit_id=habit.id) }}" class="icon-btn" title="Edit">✏️</a>
+        <form method="POST" action="{{ url_for('habits.delete', habit_id=habit.id) }}" style="display:inline">
+          <button type="submit" class="icon-btn" title="Delete" onclick="return confirm('Remove this habit?')">🗑️</button>
+        </form>
+      </div>
+    </div>
+
+    <h3 class="habit-name">{{ habit.name }}</h3>
+
+    <div class="streak-row">
+      <div class="streak-item">
+        <span class="streak-num" id="streak-{{ habit.id }}">{{ habit.current_streak() }}</span>
+        <span class="streak-label">🔥 Current</span>
+      </div>
+      <div class="streak-item">
+        <span class="streak-num">{{ habit.longest_streak() }}</span>
+        <span class="streak-label">🏆 Best</span>
+      </div>
+    </div>
+
+    <div class="habit-bottom">
+      <a href="{{ url_for('habits.detail', habit_id=habit.id) }}" class="btn btn-ghost btn-sm">View Stats</a>
+      {% if habit.checked_today() %}
+        <button class="btn btn-success btn-sm" disabled>Done Today ✓</button>
+      {% else %}
+        <button class="btn btn-primary btn-sm checkin-btn" data-id="{{ habit.id }}">Check In</button>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% else %}
+<div class="empty-state">
+  <div class="empty-icon">🌱</div>
+  <h2 class="empty-title">No habits yet</h2>
+  <p class="empty-desc">Start with one small habit. Consistency beats perfection.</p>
+  <a href="{{ url_for('habits.add') }}" class="btn btn-primary">Add Your First Habit</a>
+</div>
+{% endif %}
+{% endblock %}
