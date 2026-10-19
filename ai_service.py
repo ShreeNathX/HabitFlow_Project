@@ -15,7 +15,7 @@ app.config["MAX_CONTENT_LENGTH"] = 16 * 1024
 ALLOWED_ORIGINS = {item.strip().rstrip("/") for item in os.getenv(
     "FRONTEND_ORIGINS", "https://shreenathx.github.io,http://localhost:8000,http://127.0.0.1:8000"
 ).split(",") if item.strip()}
-MODEL = os.getenv("AI_MODEL", "openai/gpt-oss-20b:free")
+MODEL = os.getenv("AI_MODEL", "openrouter/free")
 hits = defaultdict(deque)
 
 
@@ -145,10 +145,8 @@ def plan():
             raise ValueError("Daily time must be between 5 and 180 minutes.")
         result = model_json(
             "Create a realistic, evidence-aware personal growth outline. Do not invent named resources, credentials, statistics or guarantees. For fitness, use conservative low-risk language and say to stop for pain; no diagnosis or treatment. Do not promise outcomes. Return JSON only with a short summary string and milestones array of 3 to 6 objects, each containing a short title and a focus string. Keep all actions achievable for the stated time and duration.",
-            f"Goal: {goal}
-Duration: {duration} days
-Starting point: {level}
-Available most days: {minutes} minutes. Make a flexible plan with milestones that progress from foundations to practice and reflection.",
+            (f"Goal: {goal}\nDuration: {duration} days\nStarting point: {level}\n"
+             f"Available most days: {minutes} minutes. Make a flexible plan with milestones that progress from foundations to practice and reflection."),
             850,
         )
         milestones = result.get("milestones")
@@ -191,10 +189,8 @@ def challenge():
             raise ValueError("Daily time must be between 5 and 180 minutes.")
         result = model_json(
             "Design one safe and concrete personal growth challenge. Do not invent sources, factual claims or guaranteed outcomes. Fitness tasks must be conservative, accessible, offer rest and advise stopping if pain occurs. Do not prescribe diets, diagnose or treat. The verification should be a simple self-report and never claim external proof. Return JSON with title, instructions, minutes as an integer, and verification. Keep instructions under 450 characters.",
-            f"Goal: {goal}
-Plan day: {day} of {duration}
-Starting point: {level}
-Available time: {minutes} minutes. Give one fresh challenge that advances the goal and is feasible today.",
+            (f"Goal: {goal}\nPlan day: {day} of {duration}\nStarting point: {level}\n"
+             f"Available time: {minutes} minutes. Give one fresh challenge that advances the goal and is feasible today."),
             450,
         )
         title = short_text(result.get("title"), "Challenge title", 90)

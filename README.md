@@ -24,7 +24,7 @@ The front end is a static GitHub Pages site. The small Flask API is prepared as 
 4. Wait for the service health check at `/health` to pass. Copy the service's `https://…onrender.com` URL.
 5. Open the live site, choose **Connect AI**, paste the URL, and save.
 
-The default model is `openai/gpt-oss-20b:free`. You can change `AI_MODEL` in Render to another currently available free model. Free-tier limits are shared by everyone using this public app, so restrict or rotate the provider key if unexpected usage appears.
+The default model router is `openrouter/free`, which selects from currently available free models. OpenRouter lists a free API cap of 50 requests per day (with provider-specific limits also applying). These requests are shared by everyone using this public app. The router may select different models over time; set `AI_MODEL` in Render to a pinned free model if you need consistent behavior, and check that model current price and data policy before switching.
 
 ### Local preview
 

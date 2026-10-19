@@ -10,6 +10,6 @@ services:
       - key: OPENROUTER_API_KEY
         sync: false
       - key: AI_MODEL
-        value: openai/gpt-oss-20b:free
+        value: openrouter/free
       - key: FRONTEND_ORIGINS
         value: https://shreenathx.github.io,http://localhost:8000,http://127.0.0.1:8000
