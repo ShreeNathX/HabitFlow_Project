@@ -1,56 +1,31 @@
-# HabitFlow - Habit Streak Tracker
+# Daymark + HabitFlow
 
-A Flask web app to track daily habits, build streaks, and visualize consistency.
+**Live site:** [Open Daymark](https://shreenathx.github.io/HabitFlow_Project/)
 
-## Setup & Run
+Daymark is an offline-first goal coach. Set a learning, fitness, wellbeing, creative, career, or personal goal and get practical daily challenges. Plans and progress are saved in the current browser.
 
-```bash
-# 1. Install dependencies
-pip install flask flask-login flask-sqlalchemy bcrypt
+## Static goal coach
 
-# 2. Run the app
-python app.py
+- No account, server, or online AI required
+- Goal setup includes area, timeframe, daily time, experience, and optional context
+- Daily challenges include instructions and a completion check
+- Progress tracking, local coach prompts, and JSON backup/restore
+- Service worker caches the app after the first visit for offline use
 
-# 3. Open in browser
-http://localhost:5000
-```
+The coach uses bundled templates and simple fixed responses. It does not guarantee expert advice; fitness and wellbeing prompts are general guidance. Stop activities that cause discomfort and consult a qualified professional for specialist advice.
 
-## Features
-- Register / Login (bcrypt passwords)
-- Add, edit, delete habits with icons and color themes
-- One-click daily check-in (AJAX, no page reload)
-- Streak counter (current + longest)
-- 35-day heat-map calendar
-- Weekly bar chart (Chart.js)
-- CSV export of all check-in data
+The live page is deployed from GitHub Pages by the workflow in .github/workflows/pages.yml. If the link is not yet active, allow the first deployment to finish in the repository’s Actions tab.
 
-## Project Structure
-```
-HABITFLOW_PROJECT/
-├── app.py              # Flask app factory
-├── models.py           # SQLAlchemy models (User, Habit, CheckIn)
-├── routes/
-│   ├── auth.py         # Register, Login, Logout
-│   ├── dashboard.py    # Main dashboard view
-│   └── habits.py       # CRUD + check-in + export
-├── templates/
-│   ├── base.html
-│   ├── login.html
-│   ├── register.html
-│   ├── dashboard.html
-│   ├── habit_detail.html
-│   └── habit_form.html
-└── static/
-    ├── css/style.css
-    └── js/main.js, detail.js
-```
+## Existing Flask habit tracker
 
-## Tech Stack
-- Backend: Python 3 + Flask
-- Database: SQLite + SQLAlchemy
-- Auth: Flask-Login + bcrypt
-- Charts: Chart.js 4
-- Frontend: HTML5 + CSS3 + Vanilla JS
+This repository also contains the original Flask app for tracking daily habits, check-ins, and streaks.
 
-## Test Login
-Username: testuser | Password: test123
+### Run locally
+
+1. Create a virtual environment: python -m venv .venv
+2. Activate it in PowerShell: .\.venv\Scripts\Activate.ps1
+3. Install packages: pip install -r requirements.txt
+4. Start the server: python app.py
+5. Open http://localhost:5000
+
+GitHub Pages hosts the static Daymark site only; it does not run the Flask backend.
