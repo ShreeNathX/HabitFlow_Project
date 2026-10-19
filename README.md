@@ -1,56 +1,21 @@
-# HabitFlow - Habit Streak Tracker
+# Daymark
 
-A Flask web app to track daily habits, build streaks, and visualize consistency.
+**Live site:** [Open Daymark](https://shreenathx.github.io/HabitFlow_Project/)
 
-## Setup & Run
+Daymark helps people make steady progress in learning, fitness, creative work, careers, wellbeing, and everyday goals. Add a goal and duration to generate a complete day-by-day plan. The current day appears on Home, and the Plan section shows every day.
 
-```bash
-# 1. Install dependencies
-pip install flask flask-login flask-sqlalchemy bcrypt
+## How it works
 
-# 2. Run the app
-python app.py
+- Plans are generated locally from practical, goal-category templates. No AI API, account, key, or backend is used.
+- The full plan, goals, check-ins, and progress are stored in browser local storage.
+- Home presents one challenge per day; use Plan to review the entire schedule.
+- The static site can work offline after it has been opened once and cached by the browser.
+- The local planner is rules-based, not a language model. Its suggestions are general, and fitness tasks are conservative. Stop if you feel pain.
 
-# 3. Open in browser
-http://localhost:5000
-```
+## Hosting
 
-## Features
-- Register / Login (bcrypt passwords)
-- Add, edit, delete habits with icons and color themes
-- One-click daily check-in (AJAX, no page reload)
-- Streak counter (current + longest)
-- 35-day heat-map calendar
-- Weekly bar chart (Chart.js)
-- CSV export of all check-in data
+The app is a static site hosted by GitHub Pages. To preview locally, serve this folder with any static file server and open its local address. No package installation or secrets are required.
 
-## Project Structure
-```
-HABITFLOW_PROJECT/
-├── app.py              # Flask app factory
-├── models.py           # SQLAlchemy models (User, Habit, CheckIn)
-├── routes/
-│   ├── auth.py         # Register, Login, Logout
-│   ├── dashboard.py    # Main dashboard view
-│   └── habits.py       # CRUD + check-in + export
-├── templates/
-│   ├── base.html
-│   ├── login.html
-│   ├── register.html
-│   ├── dashboard.html
-│   ├── habit_detail.html
-│   └── habit_form.html
-└── static/
-    ├── css/style.css
-    └── js/main.js, detail.js
-```
+## Privacy and limits
 
-## Tech Stack
-- Backend: Python 3 + Flask
-- Database: SQLite + SQLAlchemy
-- Auth: Flask-Login + bcrypt
-- Charts: Chart.js 4
-- Frontend: HTML5 + CSS3 + Vanilla JS
-
-## Test Login
-Username: testuser | Password: test123
+Your data stays in this browser and is not synced to other devices. Clearing site data removes your saved plans and progress. The planner does not verify completed work; check-ins are self-reported. Daymark is not medical, legal, or financial advice.

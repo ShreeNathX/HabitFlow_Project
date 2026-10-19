@@ -1,0 +1,11 @@
+{
+  "name": "Daymark — make a little progress",
+  "short_name": "Daymark",
+  "description": "A thoughtful daily practice for your personal goals.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f1eee5",
+  "theme_color": "#f1eee5",
+  "icons": []
+}
