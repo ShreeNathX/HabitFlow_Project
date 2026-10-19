@@ -19,7 +19,7 @@ jobs:
       - name: Prepare static site
         run: |
           mkdir _site
-          cp index.html sw.js _site/
+          cp index.html sw.js manifest.webmanifest _site/
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
