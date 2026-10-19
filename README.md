@@ -2,40 +2,20 @@
 
 **Live site:** [Open Daymark](https://shreenathx.github.io/HabitFlow_Project/)
 
-Daymark turns a goal in any area—learning, fitness, creativity, career, wellbeing, or everyday habits—into a manageable daily practice. It includes a distinct, responsive interface, progress tracking, daily challenges, an AI coach, and offline-ready local suggestions.
+Daymark helps people make steady progress in learning, fitness, creative work, careers, wellbeing, and everyday goals. Add a goal and duration to generate a complete day-by-day plan. The current day appears on Home, and the Plan section shows every day.
 
 ## How it works
 
-- Your goals, check-ins, and progress stay in the browser on your device.
-- Local suggestions keep working when the AI backend is not connected.
-- Connect the optional AI service from **Connect AI**. The service creates a flexible plan, daily challenges, and coach replies.
-- AI output is validated and kept within a structured response shape. That reduces formatting errors but cannot guarantee that every suggestion is correct.
-- Do not enter sensitive details. AI suggestions are general guidance, not medical, legal, or financial advice.
+- Plans are generated locally from practical, goal-category templates. No AI API, account, key, or backend is used.
+- The full plan, goals, check-ins, and progress are stored in browser local storage.
+- Home presents one challenge per day; use Plan to review the entire schedule.
+- The static site can work offline after it has been opened once and cached by the browser.
+- The local planner is rules-based, not a language model. Its suggestions are general, and fitness tasks are conservative. Stop if you feel pain.
 
 ## Hosting
 
-The front end is a static GitHub Pages site. The small Flask API is prepared as a free Render web service in `render.yaml`. Render's free web services can sleep after inactivity, so the first request may take about a minute. Usage quotas and free model availability depend on the provider and can change.
+The app is a static site hosted by GitHub Pages. To preview locally, serve this folder with any static file server and open its local address. No package installation or secrets are required.
 
-### Enable the AI coach
+## Privacy and limits
 
-1. Create an OpenRouter account and an API key. Review the model/provider data policy before use; free model routes may send inputs to different providers with different retention or training practices.
-2. In Render, create a Blueprint from this repository and deploy the `daymark-ai` service.
-3. In the Render service environment, add `OPENROUTER_API_KEY` as a secret. The key belongs only on Render; never add it to this repository or the browser.
-4. Wait for the service health check at `/health` to pass. Copy the service's `https://…onrender.com` URL.
-5. Open the live site, choose **Connect AI**, paste the URL, and save.
-
-The default model router is `openrouter/free`, which selects from currently available free models. OpenRouter lists a free API cap of 50 requests per day (with provider-specific limits also applying). These requests are shared by everyone using this public app. The router may select different models over time; set `AI_MODEL` in Render to a pinned free model if you need consistent behavior, and check that model current price and data policy before switching.
-
-### Local preview
-
-Serve this folder over HTTP (for example, `python -m http.server 8000`) and open `http://localhost:8000`. Add `http://localhost:8000` to `FRONTEND_ORIGINS` if you use a local backend. To run the API locally, set `OPENROUTER_API_KEY` in your shell and run `python ai_service.py`.
-
-## Privacy and safety
-
-The browser stores goals and progress locally. The connected API receives only the current goal and the minimum context needed for a plan, challenge, or chat request. The API does not save a user profile or conversation database. The API provider and the selected model provider may process request content under their own policies. Do not share health history or other sensitive personal information.
-
-Fitness suggestions are conservative general prompts. Stop if you feel pain and ask a qualified professional before strenuous exercise or when you have concerns about your health. AI can still make factual mistakes; verify important information.
-
-## Original Flask tracker
-
-The repository also retains the earlier Flask habit tracker (`app.py`). GitHub Pages publishes only the static Daymark front end; Render runs the separate AI API.
+Your data stays in this browser and is not synced to other devices. Clearing site data removes your saved plans and progress. The planner does not verify completed work; check-ins are self-reported. Daymark is not medical, legal, or financial advice.
